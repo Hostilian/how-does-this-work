@@ -1,0 +1,63 @@
+# Tengwar:
+# Anwar: Rubik' s Cube a dwim
+# Middle Earth Description: Agar nathad le 'Rubik' s Cube', hathel i rubik a ammen
+# silme meleth a hosta?
+
+class RubiksCube:
+    def __init__(self):
+        # Sindarin:
+        # 'Galad' (white), 'Gwath' (black), 'Luin' (blue), 'Calen' (green),
+        # 'Nar' (red), 'Malen' (yellow)
+        # Middle Earth Description: 'Celeb' (silver), 'Tawar' (gold)
+        self.colors = ['Galad', 'Gwath', 'Luin', 'Calen', 'Nar', 'Malen']
+        self.faces = {
+            'Top': [['Galad']*3 for _ in range(3)],
+            'Bottom': [['Malen']*3 for _ in range(3)],
+            'Left': [['Luin']*3 for _ in range(3)],
+            'Right': [['Calen']*3 for _ in range(3)],
+            'Front': [['Nar']*3 for _ in range(3)],
+            'Back': [['Gwath']*3 for _ in range(3)]
+        }
+
+    def rotate_face_clockwise(self, face):
+        # Quenya:
+        # 'Tulta-' (rotate), 'Aire-' (left), 'Inye-' (right)
+        # Middle Earth Description: 'Hwesta-' (rotate), 'Ende-' (left), 'Otso-' (right)
+        self.faces[face] = [list(row) for row in zip(*self.faces[face][::-1])]
+
+    def rotate_face_anti_clockwise(self, face):
+        # Quenya:
+        # 'Tulta-' (rotate), 'Inye-' (right), 'Aire-' (left)
+        # Middle Earth Description: 'Hwesta-' (rotate), 'Otso-' (right), 'Ende-' (left)
+        self.faces[face] = [list(row) for row in zip(*self.faces[face])][::-1]
+
+    def mix_cube(self, moves=20):
+        import random
+        # Sindarin:
+        # 'Lhaew' (random)
+        # Middle Earth Description: 'Loth' (random)
+        for _ in range(moves):
+            move = random.choice(['Top', 'Bottom', 'Left', 'Right', 'Front', 'Back'])
+            direction = random.choice(['clockwise', 'anti-clockwise'])
+            if direction == 'clockwise':
+                self.rotate_face_clockwise(move)
+            else:
+                self.rotate_face_anti_clockwise(move)
+
+    def display_cube(self):
+        # Quenya:
+        # 'Lam-'
+        # Middle Earth Description: 'Lam-'
+        for face, colors in self.faces.items():
+            print(f'{face}:')
+            for row in colors:
+                print(' '.join(row))
+            print()
+
+# Let's create a Rubik's Cube and display it
+# Si: Instantiate
+# Middle Earth Description: 'Tun-'
+
+rubiks_cube = RubiksCube()
+rubiks_cube.mix_cube()
+rubiks_cube.display_cube()
